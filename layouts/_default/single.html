@@ -21,9 +21,16 @@
             <div class="text-center">
               {{ if .Params.author }}
                 {{ .Params.author }}
+              {{ end }}
+              {{ if and .Params.author .Params.date }}
                 <small>|</small>
               {{ end }}
-              {{ .Date.Format (.Site.Params.datesFormat.article | default "Jan 2, 2006") }}
+              {{ if .Params.date }}
+                {{ .Date.Format (.Site.Params.datesFormat.article | default "Jan 2, 2006") }}
+                {{ if .Params.dateTo }}
+                  – {{ time.Format (.Site.Params.datesFormat.article | default "Jan 2, 2006") .Params.dateTo }}
+                {{ end }}
+              {{ end }}
 
               {{ if or (.Site.Params.singlePages.readTime.enable | default true) (.Params.enableReadingTime) }}
               <span id="readingTime">
