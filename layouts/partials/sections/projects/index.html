@@ -40,10 +40,8 @@
                 </div>
             </div>
             {{ end }}
-            {{ range ( where site.RegularPages "Type" "projects" ) }}
-                {{ if .Params.showInHome | default false }}
-                    {{- partial "sections/projects/project.html" . -}}
-                {{ end }}
+            {{ range sort (where (where site.RegularPages "Type" "projects" ) "Params.showInHome" true) "Params.homeOrder" }}
+                {{- partial "sections/projects/project.html" . -}}
             {{ end }}
         </div>
 
